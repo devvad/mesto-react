@@ -1,14 +1,14 @@
 function Main() {
   function handleEditAvatarClick() {
-		document.querySelector(".popup_avatar").classList.add("popup_opened");
+		document.querySelector(".popup_type_avatar").classList.add("popup_opened");
 	}
 
 	function handleEditProfileClick() {
-		document.querySelector(".profile-popup").classList.add("popup_opened");
+		document.querySelector(".popup_type_profile").classList.add("popup_opened");
 	}
 
 	function handleAddPlaceClick() {
-		document.querySelector(".popup-type-place").classList.add("popup_opened");
+		document.querySelector(".popup_type_place").classList.add("popup_opened");
 	}
 
 	return (
