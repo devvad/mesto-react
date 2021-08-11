@@ -1,10 +1,12 @@
+import logo from "../images/logo.svg"
+
 function App() {
   return (
     <>
       <header className="header">
         <img
           className="header__logo"
-          src="<%=require('./images/logo.svg')%>"
+          src={logo}
           alt="Логотип сайта Mesto"
         />
       </header>
