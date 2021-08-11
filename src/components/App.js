@@ -2,6 +2,7 @@ import Header from "./Header"
 import Main from "./Main"
 import Footer from "./Footer"
 import PopupWithForm from "./PopupWithForm"
+import ImagePopup from "./ImagePopup"
 
 function App() {
   return (
@@ -71,18 +72,9 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <div className="popup popup_gallery">
-        <div className="popup__preview">
-          <figure className="popup__figure">
-            <img className="popup__image" src="#" alt="Фотография места" />
-            <figcaption className="popup__figcaption" />
-          </figure>
-          <button type="button" className="popup__closed" />
-        </div>
-      </div>
+      <ImagePopup></ImagePopup>
 
       <PopupWithForm title="Вы уверены?" name="confirm">
-        <h2 className="popup__title"></h2>
         <button type="submit" className="popup__button">
           Да
         </button>
