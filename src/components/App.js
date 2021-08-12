@@ -3,15 +3,37 @@ import Main from "./Main"
 import Footer from "./Footer"
 import PopupWithForm from "./PopupWithForm"
 import ImagePopup from "./ImagePopup"
+import { useState } from "react"
 
 function App() {
-  return (
+	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  // Обработчики событий для открытия попапов:
+  const handleEditAvatarClick = () => {
+		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+  };
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+  };
+
+  const handleAddPlaceClick = () => {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+  };
+
+	return (
     <>
       <Header></Header>
-      <Main></Main>
+      <Main>
+				onEditAvatar={handleEditAvatarClick}
+				onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+			</Main>
       <Footer></Footer>
 
-      <PopupWithForm title="Редактирование профиля" name="profile">
+      <PopupWithForm title="Редактирование профиля" name="profile" isOpen={isEditProfilePopupOpen}>
         <input
           type="text"
           className="popup__input"
@@ -41,7 +63,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Новое место" name="place">
+      <PopupWithForm title="Новое место" name="place" isOpen={isAddPlacePopupOpen}>
         <input
           type="text"
           id="card-name"
@@ -80,7 +102,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Обновить аватар" name="avatar">
+      <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen}>
         <input
           type="url"
           className="popup__input"
