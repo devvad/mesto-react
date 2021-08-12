@@ -9,8 +9,8 @@ function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+	const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false)
 
-  // Обработчики событий для открытия попапов:
   const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
   };
@@ -23,6 +23,17 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   };
 
+	const handleConfirmationPopupClick = () => {
+    setIsConfirmationPopupOpen(!isConfirmationPopupOpen)
+  };
+
+	const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsConfirmationPopupOpen(false)
+  }
+
 	return (
     <>
       <Header></Header>
@@ -30,11 +41,12 @@ function App() {
 				onEditAvatar={handleEditAvatarClick}
 				onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+				onConfirmationPopup={handleConfirmationPopupClick}
 			>
 			</Main>
       <Footer></Footer>
 
-      <PopupWithForm title="Редактирование профиля" name="profile" isOpen={isEditProfilePopupOpen}>
+      <PopupWithForm title="Редактирование профиля" name="profile" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <input
           type="text"
           className="popup__input"
@@ -64,7 +76,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Новое место" name="place" isOpen={isAddPlacePopupOpen}>
+      <PopupWithForm title="Новое место" name="place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <input
           type="text"
           id="card-name"
@@ -103,7 +115,7 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen}>
+      <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <input
           type="url"
           className="popup__input"

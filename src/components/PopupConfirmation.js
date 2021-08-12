@@ -1,23 +1,19 @@
-import Popup from "./Popup.js";
-export default class PopupConfirmation extends Popup {
-	constructor(popupSelector) {
-		super(popupSelector);
-		this._form = this._rootElement.querySelector("form");
-	}
+import close from '../images/popup/Close_Icon.svg';
 
-	setHandleFormSubmit(handleFormSubmit) {
-		this._handleFormSubmit = handleFormSubmit;
-	}
+const PopupConfirm = ({isOpen, onClose, container}) => {
 
-	setCardId(id) {
-		this._cardId = id;
-	}
+  return(
+    <div className={isOpen ? `popup popup_confirm popup_opened` : `popup popup_confirm` }>
+      <form id='form_remove' className ={container}>
+        <h2 className="popup__title">Вы Уверены</h2>
+        <button type ="submit" className="popup__button" >Да</button>
+      </form>
+      <button src = {close} alt="закрыть" type="button" id="close_remove" className="popup__closed" onClick={onClose}>
 
-	setEventListeners() {
-		this._form.addEventListener("submit", (event) => {
-			this._handleFormSubmit(this._cardId);
-			event.preventDefault();
-		});
-		return super.setEventListeners();
-	}
+      </button>
+    </div>
+
+  )
 }
+
+export default PopupConfirm
