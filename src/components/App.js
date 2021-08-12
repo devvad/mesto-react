@@ -9,7 +9,8 @@ function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-	const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false)
+	const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+	const [selectedCard, setSelectedCard] = useState(false);
 
   const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -27,11 +28,16 @@ function App() {
     setIsConfirmationPopupOpen(!isConfirmationPopupOpen)
   };
 
+	const handleCardClick = (card) => {
+		setSelectedCard(card)
+	};
+
 	const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsConfirmationPopupOpen(false)
+		setSelectedCard(false)
   }
 
 	return (
@@ -42,6 +48,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onConfirmationPopup={handleConfirmationPopupClick}
+        onCardClick={handleCardClick}
       ></Main>
       <Footer></Footer>
 
@@ -116,7 +123,12 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <ImagePopup></ImagePopup>
+      <ImagePopup
+				card={selectedCard}
+				onClose={() => {
+					setSelectedCard(false);
+				}}
+			></ImagePopup>
 
       <PopupWithForm title="Вы уверены?" name="confirm">
         <button type="submit" className="popup__button">
