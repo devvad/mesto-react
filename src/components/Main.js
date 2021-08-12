@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
+import Card from "./Card";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
 	const [userName, setUserName] = useState("");
@@ -62,19 +63,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
       </section>
       <section>
         <ul className="cards">{cards.map((data) => {
-					return (
-            <li className="card">
-              <img className="card__image" src={data.link} />
-              <div className="card__info">
-                <h2 className="card__title">{data.name}</h2>
-                <div className="card__like-number">
-                  <button type="button" className="card__like"></button>
-                  <span className="card__likes-container">{data.likes.length}</span>
-                </div>
-                <button type="button" className="card__delete-icon"></button>
-              </div>
-            </li>
-          );
+					return <Card {...data} />;
 				})}</ul>
       </section>
     </main>
