@@ -1,5 +1,5 @@
-import Header from "./Header"
-import Main from "./Main"
+import Header from "./Header";
+import Main from "./Main";
 import Footer from "./Footer"
 import PopupWithForm from "./PopupWithForm"
 import ImagePopup from "./ImagePopup"
@@ -38,15 +38,19 @@ function App() {
     <>
       <Header></Header>
       <Main
-				onEditAvatar={handleEditAvatarClick}
-				onEditProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-				onConfirmationPopup={handleConfirmationPopupClick}
-			>
-			</Main>
+        onConfirmationPopup={handleConfirmationPopupClick}
+      ></Main>
       <Footer></Footer>
 
-      <PopupWithForm title="Редактирование профиля" name="profile" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm
+        title="Редактирование профиля"
+        name="profile"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+      >
         <input
           type="text"
           className="popup__input"
@@ -76,7 +80,12 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Новое место" name="place" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm
+        title="Новое место"
+        name="place"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+      >
         <input
           type="text"
           id="card-name"
@@ -115,7 +124,12 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm
+        title="Обновить аватар"
+        name="avatar"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+      >
         <input
           type="url"
           className="popup__input"
