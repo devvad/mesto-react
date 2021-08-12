@@ -3,13 +3,12 @@ import Main from "./Main";
 import Footer from "./Footer"
 import PopupWithForm from "./PopupWithForm"
 import ImagePopup from "./ImagePopup"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-	const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState(false);
 
   const handleEditAvatarClick = () => {
@@ -24,10 +23,6 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
   };
 
-	const handleConfirmationPopupClick = () => {
-    setIsConfirmationPopupOpen(!isConfirmationPopupOpen)
-  };
-
 	const handleCardClick = (card) => {
 		setSelectedCard(card)
 	};
@@ -36,9 +31,16 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setIsConfirmationPopupOpen(false)
 		setSelectedCard(false)
   }
+
+	useEffect(() => {
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") {
+				setSelectedCard(false);
+			}
+		})
+	});
 
 	return (
     <>
@@ -47,7 +49,6 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-        onConfirmationPopup={handleConfirmationPopupClick}
         onCardClick={handleCardClick}
       ></Main>
       <Footer></Footer>
