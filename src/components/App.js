@@ -26,10 +26,11 @@ function App() {
 	return (
     <>
       <Header></Header>
-      <Main>
+      <Main
 				onEditAvatar={handleEditAvatarClick}
 				onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+			>
 			</Main>
       <Footer></Footer>
 
