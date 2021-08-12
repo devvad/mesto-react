@@ -38,6 +38,9 @@ function App() {
 		document.addEventListener("keydown", (event) => {
 			if (event.key === "Escape") {
 				setSelectedCard(false);
+				setIsEditAvatarPopupOpen(false)
+    		setIsEditProfilePopupOpen(false)
+    		setIsAddPlacePopupOpen(false)
 			}
 		})
 	});
