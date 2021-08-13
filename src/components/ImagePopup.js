@@ -1,4 +1,5 @@
 function ImagePopup({ card, onClose }) {
+	console.log(card);
 	return (
     <div
       className={`popup popup_gallery ${card ? "popup_opened" : ""}`}
@@ -6,7 +7,7 @@ function ImagePopup({ card, onClose }) {
         onClose();
       }}
     >
-      <div className="popup__preview">
+      {card && <div className="popup__preview">
         <figure className="popup__figure">
           <img className="popup__image" src={card.link} alt={card.name} />
           <figcaption className="popup__figcaption">{card.name}</figcaption>
@@ -18,7 +19,7 @@ function ImagePopup({ card, onClose }) {
             onClose();
           }}
         />
-      </div>
+      </div>}
     </div>
   );
 }

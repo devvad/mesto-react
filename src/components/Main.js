@@ -22,7 +22,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       .catch((err) => {
         console.error(err);
       });
-  });
+  }, []);
 
   return (
     <main>

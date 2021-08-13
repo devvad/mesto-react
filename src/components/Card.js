@@ -6,7 +6,7 @@ function Card({card, onCardClick}) {
         onCardClick(card);
       }}
     >
-      <img className="card__image" src={card.link} />
+      <img className="card__image" src={card.link} alt={card.name} />
       <div className="card__info">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like-number">

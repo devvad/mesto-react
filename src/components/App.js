@@ -9,7 +9,7 @@ function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-	const [selectedCard, setSelectedCard] = useState(false);
+	const [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -31,13 +31,13 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
-		setSelectedCard(false)
+		setSelectedCard(null)
   }
 
 	useEffect(() => {
 		document.addEventListener("keydown", (event) => {
 			if (event.key === "Escape") {
-				setSelectedCard(false);
+				setSelectedCard(null);
 				setIsEditAvatarPopupOpen(false)
     		setIsEditProfilePopupOpen(false)
     		setIsAddPlacePopupOpen(false)
@@ -130,7 +130,7 @@ function App() {
       <ImagePopup
 				card={selectedCard}
 				onClose={() => {
-					setSelectedCard(false);
+					closeAllPopups();
 				}}
 			></ImagePopup>
 
