@@ -35,7 +35,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           />
         </div>
         <div className="profile__user">
-          <div className="profile__info">
+          <div className="profile__info foo">
             <h1 className="profile__title">{userName}</h1>
             <button
               type="button"
