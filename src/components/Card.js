@@ -1,12 +1,14 @@
 function Card({card, onCardClick}) {
 	return (
-    <li
-      className="card"
-      onClick={() => {
-        onCardClick(card);
-      }}
-    >
-      <img className="card__image" src={card.link} alt={card.name} />
+    <li className="card">
+      <img
+        className="card__image"
+        src={card.link}
+        alt={card.name}
+        onClick={() => {
+          onCardClick(card);
+        }}
+      />
       <div className="card__info">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like-number">
