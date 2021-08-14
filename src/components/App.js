@@ -62,6 +62,7 @@ function App() {
       <PopupWithForm
         title="Редактирование профиля"
         name="profile"
+        submitText="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >
@@ -89,14 +90,12 @@ function App() {
           required
         />
         <span className="popup__error-message input-popup-subtitle-error" />
-        <button type="submit" className="popup__button">
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         title="Новое место"
         name="place"
+        submitText="Добавить место"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
@@ -120,32 +119,25 @@ function App() {
           required
         />
         <span className="popup__error-message link-error" />
-        <button
-          type="submit"
-          className="popup__button popup__button_disabled"
-          disabled
-          aria-label="Добавить место"
-        >
-          Создать
-        </button>
       </PopupWithForm>
 
       <ImagePopup
-				card={selectedCard}
-				onClose={() => {
-					closeAllPopups();
-				}}
-			></ImagePopup>
+        card={selectedCard}
+        onClose={() => {
+          closeAllPopups();
+        }}
+      ></ImagePopup>
 
-      <PopupWithForm title="Вы уверены?" name="confirm">
-        <button type="submit" className="popup__button">
-          Да
-        </button>
-      </PopupWithForm>
+      <PopupWithForm
+        title="Вы уверены?"
+        name="confirm"
+        submitText="Да"
+      ></PopupWithForm>
 
       <PopupWithForm
         title="Обновить аватар"
         name="avatar"
+        submitText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -159,9 +151,6 @@ function App() {
           required
         />
         <span className="input-popup-avatar-error popup__error-message" />
-        <button type="submit" className="popup__button" id="newAvatar">
-          Сохранить
-        </button>
       </PopupWithForm>
     </>
   );
