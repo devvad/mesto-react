@@ -35,15 +35,18 @@ function App() {
   }
 
 	useEffect(() => {
-		document.addEventListener("keydown", (event) => {
+		const onKeyDown = (event) => {
 			if (event.key === "Escape") {
-				setSelectedCard(null);
-				setIsEditAvatarPopupOpen(false)
-    		setIsEditProfilePopupOpen(false)
-    		setIsAddPlacePopupOpen(false)
+				closeAllPopups();
 			}
-		})
-	});
+		};
+
+		document.addEventListener("keydown", onKeyDown);
+
+		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+		}
+	}, []);
 
 	return (
     <>
