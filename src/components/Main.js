@@ -9,9 +9,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    if (userName) {
-      return;
-    }
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
         setUserName(user.name);
@@ -57,7 +54,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       <section>
         <ul className="cards">
           {cards.map((data) => {
-            return <Card card={data} onCardClick={onCardClick} />;
+            return (
+              <Card card={data} onCardClick={onCardClick} key={data._id} />
+            );
           })}
         </ul>
       </section>
