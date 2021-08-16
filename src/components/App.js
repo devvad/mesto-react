@@ -1,15 +1,28 @@
 import Header from "./Header";
 import Main from "./Main";
-import Footer from "./Footer"
-import PopupWithForm from "./PopupWithForm"
-import ImagePopup from "./ImagePopup"
-import { useEffect, useState } from "react"
+import Footer from "./Footer";
+import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
+import { useEffect, useState } from "react";
+import api from "../utils/api";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState(null);
+	const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    api.getUserInfo()
+    .then((data) => {
+      setCurrentUser(data)
+    })
+    .catch((err) => {
+			console.error(err);
+		});
+  }, []);
 
   const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -49,7 +62,7 @@ function App() {
 	}, []);
 
 	return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header></Header>
       <Main
         onEditAvatar={handleEditAvatarClick}
@@ -152,7 +165,7 @@ function App() {
         />
         <span className="input-popup-avatar-error popup__error-message" />
       </PopupWithForm>
-    </>
+		</CurrentUserContext.Provider>
   );
 }
 
