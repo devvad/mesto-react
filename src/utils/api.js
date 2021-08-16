@@ -49,18 +49,19 @@ class Api {
     })
   }
 
-  // Метод простановки лайка у карточки:
-  putLike(cardId) {
-    return this._fetch(`cards/likes/${cardId}`, {
+  // Метод простановки и удаления лайка у карточки:
+  changeLikeCardStatus(cardId, setAsLiked) {
+    const updateLike = {
       method: 'PUT',
-    })
-  }
+    }
 
-  // Метод удаления лайка у карточки:
-  removeLike(cardId) {
-    return this._fetch(`cards/likes/${cardId}`, {
+    const deleteLike = {
       method: 'DELETE',
-    })
+    }
+    return this._fetch(
+      `cards/likes/${cardId}`,
+      setAsLiked ? updateLike : deleteLike
+    );
   }
 
   // Метод обновления информации о пользователе:

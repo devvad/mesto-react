@@ -4,7 +4,8 @@ import Card from "./Card";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [cards, setCards] = useState([]);
+  const currentUserId = useContext(CurrentUserContext)._id
+	const [cards, setCards] = useState([]);
 	const { name, about, avatar} = useContext(CurrentUserContext);
 
   useEffect(() => {
@@ -17,6 +18,16 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         console.error(err);
       });
   }, []);
+
+	function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUserId);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+};
 
   return (
     <main>
@@ -52,7 +63,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <ul className="cards">
           {cards.map((data) => {
             return (
-              <Card card={data} onCardClick={onCardClick} key={data._id} />
+              <Card card={data} onCardClick={onCardClick} key={data._id} onCardLike={handleCardLike} />
             );
           })}
         </ul>
