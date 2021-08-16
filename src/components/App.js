@@ -8,60 +8,101 @@ import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
-	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-	const [selectedCard, setSelectedCard] = useState(null);
-	const [currentUser, setCurrentUser] = useState({});
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getUserInfo()
-    .then((data) => {
-      setCurrentUser(data)
-    })
-    .catch((err) => {
-			console.error(err);
-		});
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .removeCard(card._id)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   const handleEditAvatarClick = () => {
-		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   };
 
   const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   };
 
   const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
 
-	const handleCardClick = (card) => {
-		setSelectedCard(card)
-	};
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  };
 
-	const closeAllPopups = () => {
-    setIsEditAvatarPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-		setSelectedCard(null)
-  }
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
+  };
 
-	useEffect(() => {
-		const onKeyDown = (event) => {
-			if (event.key === "Escape") {
-				closeAllPopups();
-			}
-		};
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeAllPopups();
+      }
+    };
 
-		document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
 
-		return () => {
-			document.removeEventListener("keydown", onKeyDown);
-		}
-	}, []);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
 
-	return (
+  return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header></Header>
       <Main
@@ -69,6 +110,9 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
+				onCardLike={handleCardLike}
+				onCardDelete={handleCardDelete}
+				cards={cards}
       ></Main>
       <Footer></Footer>
 
@@ -165,7 +209,7 @@ function App() {
         />
         <span className="input-popup-avatar-error popup__error-message" />
       </PopupWithForm>
-		</CurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
