@@ -1,13 +1,43 @@
-function PopupWithForm ({isOpen, name, title, children, onClose, submitText}) {
-	return (
-    <div className={isOpen ? `popup popup_type_${name} popup_opened` : `popup popup_type_${name}`} onClick={onClose}>
-      <div className="popup__container">
+function PopupWithForm ({isOpen, name, title, children, onClose, submitText, onSubmit}) {
+  return (
+    <div
+      className={
+        isOpen
+          ? `popup popup_type_${name} popup_opened`
+          : `popup popup_type_${name}`
+      }
+      onClick={() => {
+        onClose();
+      }}
+    >
+      <div
+        className="popup__container"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <h2 className="popup__name">{title}</h2>
-				<form className="popup__form" name={name} noValidate>
-					{children}
-					<button type="submit" className="popup__button">{submitText}</button>
-				</form>
-        <button type="button" className="popup__closed" onClick={onClose} />
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            onSubmit();
+          }}
+          className="popup__form"
+          name={name}
+          noValidate
+        >
+          {children}
+          <button type="submit" className="popup__button">
+            {submitText}
+          </button>
+        </form>
+        <button
+          type="button"
+          className="popup__closed"
+          onClick={() => {
+            onClose();
+          }}
+        />
       </div>
     </div>
   );

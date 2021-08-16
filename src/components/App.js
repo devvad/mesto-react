@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import AddPlacePopup from "../components/AddPlacePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -102,6 +103,17 @@ function App() {
     };
   }, []);
 
+		function handleAddPlaceSubmit(card) {
+      api
+        .addCard(card)
+        .then((newCard) => {
+          setCards([...cards, newCard]);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header></Header>
@@ -110,9 +122,10 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
-				onCardLike={handleCardLike}
-				onCardDelete={handleCardDelete}
-				cards={cards}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+        cards={cards}
+        onSubmit={handleAddPlaceSubmit}
       ></Main>
       <Footer></Footer>
 
@@ -149,35 +162,6 @@ function App() {
         <span className="popup__error-message input-popup-subtitle-error" />
       </PopupWithForm>
 
-      <PopupWithForm
-        title="Новое место"
-        name="place"
-        submitText="Добавить место"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input
-          type="text"
-          id="card-name"
-          name="name"
-          className="popup__input popup__input_type_name"
-          placeholder="Название"
-          minLength={2}
-          maxLength={30}
-          required
-        />
-        <span className="popup__error-message card-name-error" />
-        <input
-          type="URL"
-          id="link"
-          name="link"
-          className="popup__input popup__input_type_link-url"
-          placeholder="Ссылка на картинку"
-          required
-        />
-        <span className="popup__error-message link-error" />
-      </PopupWithForm>
-
       <ImagePopup
         card={selectedCard}
         onClose={() => {
@@ -209,6 +193,11 @@ function App() {
         />
         <span className="input-popup-avatar-error popup__error-message" />
       </PopupWithForm>
+      <AddPlacePopup
+        isAddPlacePopupOpen={isAddPlacePopupOpen}
+        closeAllPopups={closeAllPopups}
+        onSubmit={handleAddPlaceSubmit}
+      ></AddPlacePopup>
     </CurrentUserContext.Provider>
   );
 }
