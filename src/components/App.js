@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import AddPlacePopup from "../components/AddPlacePopup";
+import EditProfilePopup from "../components/EditProfilePopup";
+import EditAvatarPopup from "../components/EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -103,16 +105,27 @@ function App() {
     };
   }, []);
 
-		function handleAddPlaceSubmit(card) {
-      api
-        .addCard(card)
-        .then((newCard) => {
-          setCards([...cards, newCard]);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+	function handleAddPlaceSubmit(card) {
+    api
+      .addCard(card)
+      .then((newCard) => {
+        setCards([...cards, newCard]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+	function handleUpdateUser(userData) {
+    api.addProfileInfo(userData)
+    .then((data) => {
+      setCurrentUser(data)
+      closeAllPopups()
+    })
+    .catch((err) => {
+			console.error(err);
+		});
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -129,38 +142,7 @@ function App() {
       ></Main>
       <Footer></Footer>
 
-      <PopupWithForm
-        title="Редактирование профиля"
-        name="profile"
-        submitText="Сохранить"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input
-          type="text"
-          className="popup__input"
-          name="name"
-          id="input-popup-title"
-          defaultValue
-          placeholder="Имя"
-          minLength={2}
-          maxLength={40}
-          required
-        />
-        <span className="popup__error-message input-popup-title-error" />
-        <input
-          type="text"
-          className="popup__input"
-          name="about"
-          id="input-popup-subtitle"
-          defaultValue
-          placeholder="Вид деятельности"
-          minLength={2}
-          maxLength={200}
-          required
-        />
-        <span className="popup__error-message input-popup-subtitle-error" />
-      </PopupWithForm>
+			<EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
       <ImagePopup
         card={selectedCard}
@@ -175,24 +157,8 @@ function App() {
         submitText="Да"
       ></PopupWithForm>
 
-      <PopupWithForm
-        title="Обновить аватар"
-        name="avatar"
-        submitText="Сохранить"
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input
-          type="url"
-          className="popup__input"
-          name="avatar"
-          id="input-popup-avatar"
-          defaultValue
-          placeholder="Ссылка на аватар"
-          required
-        />
-        <span className="input-popup-avatar-error popup__error-message" />
-      </PopupWithForm>
+      <EditAvatarPopup></EditAvatarPopup>
+
       <AddPlacePopup
         isAddPlacePopupOpen={isAddPlacePopupOpen}
         closeAllPopups={closeAllPopups}
