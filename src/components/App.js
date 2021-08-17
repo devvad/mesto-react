@@ -60,8 +60,11 @@ function App() {
   function handleCardDelete(card) {
     api
       .removeCard(card._id)
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+    		const newCards = cards.filter((item) => {
+          return item._id !== card._id;
+        });
+				setCards(newCards);
       })
       .catch((err) => {
         console.error(err);
