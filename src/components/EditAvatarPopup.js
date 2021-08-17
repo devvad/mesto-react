@@ -18,8 +18,8 @@ const handleSubmit = (e) => {
       title="Обновить аватар"
       name="avatar"
       submitText="Сохранить"
-      isOpen={isEditAvatarPopupOpen}
-      onClose={closeAllPopups}
+      isOpen={isOpen}
+      onClose={onClose}
     >
       <input
         type="url"
@@ -34,3 +34,5 @@ const handleSubmit = (e) => {
     </PopupWithForm>
   );
 }
+
+export default EditAvatarPopup

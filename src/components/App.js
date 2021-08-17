@@ -110,6 +110,7 @@ function App() {
       .addCard(card)
       .then((newCard) => {
         setCards([...cards, newCard]);
+				closeAllPopups();
       })
       .catch((err) => {
         console.error(err);
@@ -157,7 +158,11 @@ function App() {
         submitText="Да"
       ></PopupWithForm>
 
-      <EditAvatarPopup></EditAvatarPopup>
+      <EditAvatarPopup
+				isOpen={isEditAvatarPopupOpen}
+				onClose={closeAllPopups}
+			>
+			</EditAvatarPopup>
 
       <AddPlacePopup
         isAddPlacePopupOpen={isAddPlacePopupOpen}
