@@ -20,7 +20,7 @@ function PopupWithForm ({isOpen, name, title, children, onClose, submitText, onS
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            onSubmit();
+            onSubmit(event);
           }}
           className="popup__form"
           name={name}

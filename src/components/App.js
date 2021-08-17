@@ -146,7 +146,11 @@ function App() {
       ></Main>
       <Footer></Footer>
 
-			<EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+      />
 
       <ImagePopup
         card={selectedCard}
@@ -162,10 +166,9 @@ function App() {
       ></PopupWithForm>
 
       <EditAvatarPopup
-				isOpen={isEditAvatarPopupOpen}
-				onClose={closeAllPopups}
-			>
-			</EditAvatarPopup>
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+      ></EditAvatarPopup>
 
       <AddPlacePopup
         isAddPlacePopupOpen={isAddPlacePopupOpen}
