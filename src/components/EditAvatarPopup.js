@@ -3,12 +3,12 @@ import {useRef} from "react"
 
 function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
 
-const avaRef = useRef();
+const avatarRef = useRef();
 
 const handleSubmit = (e) => {
   e.preventDefault();
   onUpdateAvatar({
-    avatar: avaRef.current.value,
+    avatar: avatarRef.current.value,
   })
   e.target.reset()
 }
@@ -20,9 +20,11 @@ const handleSubmit = (e) => {
       submitText="Сохранить"
       isOpen={isOpen}
       onClose={onClose}
+			onSubmit={handleSubmit}
     >
       <input
-        type="url"
+				ref={avatarRef}
+				type="url"
         className="popup__input"
         name="avatar"
         id="input-popup-avatar"

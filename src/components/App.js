@@ -131,6 +131,17 @@ function App() {
 		});
   }
 
+	function handleUpdateAvatar(data) {
+		api.newAvatar(data)
+		.then((item) => {
+			setCurrentUser({...currentUser, avatar: item.avatar});
+			closeAllPopups();
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+	}
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header></Header>
@@ -168,6 +179,7 @@ function App() {
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+				onUpdateAvatar={handleUpdateAvatar}
       ></EditAvatarPopup>
 
       <AddPlacePopup
