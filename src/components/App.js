@@ -4,7 +4,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
-import { useEffect, useState } from "react";
 import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import AddPlacePopup from "../components/AddPlacePopup";
@@ -12,14 +11,14 @@ import EditProfilePopup from "../components/EditProfilePopup";
 import EditAvatarPopup from "../components/EditAvatarPopup";
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     api
       .getUserInfo()
       .then((data) => {
@@ -30,7 +29,7 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     api
       .getInitialCards()
       .then((cards) => {
@@ -95,7 +94,7 @@ function App() {
     setSelectedCard(null);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
         closeAllPopups();
