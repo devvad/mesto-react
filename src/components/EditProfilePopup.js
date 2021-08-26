@@ -42,7 +42,6 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser})  {
         className="popup__input"
         name="name"
         id="input-popup-title"
-        defaultValue
         placeholder="Имя"
         minLength={2}
         maxLength={40}
@@ -56,7 +55,6 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser})  {
         className="popup__input"
         name="about"
         id="input-popup-subtitle"
-        defaultValue
         placeholder="Вид деятельности"
         minLength={2}
         maxLength={200}
